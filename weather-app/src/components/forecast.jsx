@@ -1,15 +1,22 @@
-import axios from "axios";
 import React, { Component } from "react";
+import { getTemp } from "../scripts/getForecast";
 
 class Forecast extends Component {
+  state = {
+    temp: [],
+  };
   async componentDidMount() {
-    const response = await axios.get(
-      "http://api.weatherapi.com/v1/current.json?key=e81c801b8aab4b40b48142318211710&q=Lodz&aqi=no"
-    );
-    console.log(response.data.current);
+    this.setState({ temp: await getTemp() });
   }
   render() {
-    return <div></div>;
+    const temp = this.state.temp;
+    return (
+      <div>
+        {temp.map((t) => (
+          <p>{t + " "}</p>
+        ))}
+      </div>
+    );
   }
 }
 
