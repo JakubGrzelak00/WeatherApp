@@ -1,14 +1,36 @@
 import axios from "axios";
 
-export async function getTemp() {
+async function getForecast(city) {
   const URL =
-    "http://api.weatherapi.com/v1/forecast.json?key=e81c801b8aab4b40b48142318211710&q=Lodz&days=4";
-  let temp = [];
+    "http://api.weatherapi.com/v1/forecast.json?key=e81c801b8aab4b40b48142318211710&q=" +
+    city +
+    "&days=3";
+
   const response = await axios.get(URL);
-  temp[0] = response.data.current.temp_c;
-  for (let i = 1; i < 4; i++) {
-    temp[i] = response.data.forecast.forecastday[i - 1].day.maxtemp_c;
+
+  return response;
+}
+
+export async function getTemp(city = "New York") {
+  const response = await getForecast(city);
+
+  let temp = [];
+  const forecast = response.data.forecast.forecastday;
+  for (let i = 0; i < 3; i++) {
+    temp[i] = [
+      forecast[i].date,
+      forecast[i].day.maxtemp_c,
+      forecast[i].day.daily_chance_of_rain,
+      response.data.location.name + ", " + response.data.location.country,
+    ];
   }
-  console.log(temp);
   return temp;
+}
+
+export async function getLocation(city) {
+  const response = await getForecast(city);
+
+  const location =
+    response.data.location.name + ", " + response.data.location.country;
+  return location;
 }

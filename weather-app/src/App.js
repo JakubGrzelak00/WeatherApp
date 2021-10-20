@@ -1,4 +1,5 @@
 import Forecast from "./components/forecast";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
   return (
