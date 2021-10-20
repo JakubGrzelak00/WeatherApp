@@ -38,7 +38,7 @@ class Forecast extends Component {
             onChange={this.handleChange}
           />
         </div>
-        <div style={{ alignSelf: "center", marginTop: "8%" }}>
+        <div style={{ alignSelf: "center", marginTop: "5%" }}>
           <p>{this.state.location}</p>
         </div>
         <div className="d-flex flex-row justify-content-center flex-wrap">
