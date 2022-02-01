@@ -11,8 +11,20 @@ async function getForecast(city) {
   return response;
 }
 
-export async function getTemp(city = "New York") {
-  const response = await getForecast(city);
+export async function getTemp(city) {
+  if (city === "") {
+    city = "New York";
+  }
+  let response = [];
+  try {
+    response = await getForecast(city);
+  } catch (error) {
+    console.log(error.message);
+    if (error.response.status === 400) {
+      alert("City Not Found, Try Using Only English Letters");
+    }
+    return;
+  }
 
   let temp = [];
   const forecast = response.data.forecast.forecastday;

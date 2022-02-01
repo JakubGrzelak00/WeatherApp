@@ -7,7 +7,7 @@ import Input from "./input";
 class Forecast extends Component {
   state = {
     temp: [],
-    city: undefined,
+    city: "",
     location: "Choose a City",
   };
 
